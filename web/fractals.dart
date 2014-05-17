@@ -1,6 +1,8 @@
 import 'dart:html';
 import 'dart:math' as Math;
 
+import 'sierpinski.dart';
+
 import 'package:vector_math/vector_math.dart';
 
 CanvasRenderingContext2D context;
@@ -8,6 +10,7 @@ const int MAX_DEPTH = 11;
 
 void main() {
   // TODO: Controls for depth, e.g.
+  // TODO: Speed controls. work in a timer with delay between each iteration
   // TODO: Work with arbitrary angles
   // TODO: Work out why position.x and position.y must be the same value
   // TODO: Arbitrary colors, edges etc.
@@ -15,7 +18,13 @@ void main() {
   context = canvas.context2D;
   
   Vector2 position = new Vector2(500.0, 500.0);
-  generateTree(position, 100.0, 0);
+  //generateTree(position, 100.0, 0);
+  Sierpinski sierp = new Sierpinski(context);
+  sierp.draw();
+}
+
+void draw() {
+  
 }
 
 void generateTree(Vector2 position, double size, int depth) {
@@ -35,7 +44,7 @@ void generateTree(Vector2 position, double size, int depth) {
   
   // Rotated 45 degrees left, upper left of left rect is 1 side local up
   context.translate(0, -newSize);
-  
+ 
   // Generate at local 0 since canvas is already offset
   generateTree(new Vector2(0.0, 0.0), newSize, depth + 1);
   
