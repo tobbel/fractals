@@ -7,6 +7,7 @@ import 'package:vector_math/vector_math.dart';
 
 CanvasRenderingContext2D context;
 const int MAX_DEPTH = 11;
+Sierpinski sierp = new Sierpinski(context);
 
 void main() {
   // TODO: Controls for depth, e.g.
@@ -19,8 +20,26 @@ void main() {
   
   Vector2 position = new Vector2(500.0, 500.0);
   //generateTree(position, 100.0, 0);
-  Sierpinski sierp = new Sierpinski(context);
-  sierp.draw();
+  Vector2 startPosition = new Vector2(250.0, 250.0);
+  final int size = 200;
+  final int depth = 6;
+
+  querySelector('#inputDepth').onInput.listen(generateSierpFromInput);
+  sierp.init(startPosition, size);
+  sierp.generate(startPosition, size, depth);
+}
+
+void generateSierpFromInput(Event e) {
+  Vector2 startPosition = new Vector2(250.0, 250.0);
+  final int size = 200;
+  String depthString = (e.target as InputElement).value;
+  if (depthString.length <= 0) return;
+  var depth = int.parse(depthString);
+  if(depth is int && depth > 0) {
+    sierp.clear();
+    sierp.init(startPosition, size);
+    sierp.generate(startPosition, size, depth);    
+  }
 }
 
 void draw() {
