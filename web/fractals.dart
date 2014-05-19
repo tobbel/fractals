@@ -4,22 +4,24 @@ import 'dart:math' as Math;
 import 'package:vector_math/vector_math.dart';
 import 'dart:html';
 
+part 'fractal.dart';
 part 'sierpinski.dart';
 part 'pythagoras_tree.dart';
 
 CanvasRenderingContext2D context;
 SelectElement fractalSelector;
 
-Sierpinski sierp = new Sierpinski(context);
-PythagorasTree pythagoras = new PythagorasTree(context);
+Fractal fractal;
 final Vector2 startPosition = new Vector2(300.0, 300.0);
+int fractalDepth = 10;
+double fractalSize = 300.0;
 
 void main() {
-  // TODO: Controls for depth, e.g.
   // TODO: Speed controls. work in a timer with delay between each iteration
   // TODO: Work with arbitrary angles
-  // TODO: Work out why position.x and position.y must be the same value
   // TODO: Arbitrary colors, edges etc.
+  // TODO: Position controls ("camera")
+  
   CanvasElement canvas = querySelector('#canvas');
   context = canvas.context2D;
   fractalSelector = querySelector('#fractalSelector');
@@ -37,17 +39,15 @@ void fractalSelectorChanged(Event e) {
 void setFractal() {
   var val = fractalSelector.value;
   if (val == 'sierpinski_triangle') {
-    // Setup controls
-    
-    
+    fractal = new Sierpinski(context);
   }
   else if (val == 'pythagoras_tree') {
-    // Setup controls
+    fractal = new PythagorasTree(context);
   }
+  
   updateFractal();
 }
-int fractalDepth = 10;
-double fractalSize = 300.0;
+
 void fractalSettingChanged(Event e) {
   updateFractal();
 }
@@ -71,24 +71,7 @@ void updateFractal() {
     }
   }
   
-  // TODO: Based on selected fractal
-  //pythagoras.clear();
-  //pythagoras.generateTree(startPosition, fractalSize, fractalDepth);
-  sierp.clear();
-  
-  sierp.init(startPosition, fractalSize);
-  sierp.generate(startPosition, fractalSize, fractalDepth);
-}
-
-void generateSierpFromInput(Event e) {
-  Vector2 startPosition = new Vector2(250.0, 250.0);
-  final int size = 200;
-  String depthString = (e.target as InputElement).value;
-  if (depthString.length <= 0) return;
-  var depth = int.parse(depthString);
-  if(depth is int && depth > 0) {
-    sierp.clear();
-    sierp.init(startPosition, size);
-    sierp.generate(startPosition, size, depth);    
-  }
+  fractal.clear();
+  fractal.init(startPosition, fractalSize);
+  fractal.generate(startPosition, fractalSize, fractalDepth);
 }

@@ -1,14 +1,10 @@
 part of fractals;
 
-class PythagorasTree {
-
-  CanvasRenderingContext2D context;
+class PythagorasTree extends Fractal{
+  PythagorasTree(CanvasRenderingContext2D context) : super(context);
   
-  PythagorasTree(this.context);
-  
-  void clear() => context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-  
-  void generateTree(Vector2 position, double size, int depth) {
+  void init(Vector2 position, double size) {}
+  void generate(Vector2 position, double size, int depth) {
     if (depth <= 0) return;
     depth--;
   
@@ -27,7 +23,7 @@ class PythagorasTree {
     context.translate(0, -newSize);
    
     // Generate at local 0 since canvas is already offset
-    generateTree(new Vector2(0.0, 0.0), newSize, depth);
+    generate(new Vector2(0.0, 0.0), newSize, depth);
     
     // Translate back
     context.translate(0, newSize);
@@ -38,7 +34,7 @@ class PythagorasTree {
     // Rotated 45 degrees right, upper left of right rect is 2 sides local up
     context.translate(0, -newSize * 2.0);
     
-    generateTree(new Vector2(0.0, 0.0), newSize, depth);
+    generate(new Vector2(0.0, 0.0), newSize, depth);
     
     // Translate back
     context.translate(0, newSize * 2.0);

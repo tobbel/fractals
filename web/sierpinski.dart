@@ -1,9 +1,8 @@
 part of fractals;
 
-class Sierpinski {
-  CanvasRenderingContext2D context;
+class Sierpinski extends Fractal {
   
-  Sierpinski(this.context);
+  Sierpinski(CanvasRenderingContext2D context) : super(context);
   
   void init(Vector2 position, double size) {
     // Draw initial triangle
@@ -46,8 +45,6 @@ class Sierpinski {
     newPosition = new Vector2((position.x + size) + newSize * Math.cos(angle), position.y + newSize * Math.sin(angle));
     generate(newPosition, newSize, depth);
   }
-  
-  void clear() => context.clearRect(0, 0, context.canvas.width, context.canvas.height);
   
   void _drawTriangle(Vector2 position, double size) {
     context.beginPath();
