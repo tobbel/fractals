@@ -1,14 +1,11 @@
-import 'dart:html';
-import 'dart:math' as Math;
-import 'package:vector_math/vector_math.dart';
+part of fractals;
 
 class Sierpinski {
   CanvasRenderingContext2D context;
-  static const int MAX_LEVEL = 5;
   
   Sierpinski(this.context);
   
-  void init(Vector2 position, int size) {
+  void init(Vector2 position, double size) {
     // Draw initial triangle
     double angle = toRadians(-60.0);
     Vector2 startPosition = new Vector2(position.x + size * Math.cos(angle), position.y + size * Math.sin(angle));
@@ -25,7 +22,7 @@ class Sierpinski {
     context.fill();
   }
   
-  void generate(Vector2 position, int size, int depth) {
+  void generate(Vector2 position, double size, int depth) {
     if (depth <= 0) return;
     depth--;
     
@@ -33,7 +30,7 @@ class Sierpinski {
     _drawTriangle(position, size);
 
     // Generate children
-    final int newSize = size ~/ 2;
+    final double newSize = size / 2;
     
     // Above
     double angle = toRadians(-60.0);
@@ -52,7 +49,7 @@ class Sierpinski {
   
   void clear() => context.clearRect(0, 0, context.canvas.width, context.canvas.height);
   
-  void _drawTriangle(Vector2 position, int size) {
+  void _drawTriangle(Vector2 position, double size) {
     context.beginPath();
     context.moveTo(position.x, position.y);
     context.lineTo(position.x + size, position.y);
