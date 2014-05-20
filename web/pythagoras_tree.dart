@@ -4,10 +4,12 @@ class PythagorasTree extends Fractal{
   PythagorasTree(CanvasRenderingContext2D context) : super(context);
   
   void init(Vector2 position, double size) {}
+  
   void generate(Vector2 position, double size, int depth) {
+    // TODO: Work with arbitrary angles
     if (depth <= 0) return;
     depth--;
-  
+    
     // Fill this
     context.fillRect(position.x, position.y, size, size);
     

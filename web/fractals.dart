@@ -17,9 +17,10 @@ int fractalDepth = 10;
 double fractalSize = 300.0;
 
 void main() {
-  // TODO: Speed controls. work in a timer with delay between each iteration
-  // TODO: Work with arbitrary angles
-  // TODO: Arbitrary colors, edges etc.
+  // TODO: Add controls:
+  //  - Speed. Work in a timer with delay between each iteration.
+  //  - Line color
+  //  - Line width
   // TODO: Position controls ("camera")
   
   CanvasElement canvas = querySelector('#canvas');
@@ -28,7 +29,6 @@ void main() {
   fractalSelector.onChange.listen(fractalSelectorChanged);
   querySelector('#inputDepth').onInput.listen(fractalSettingChanged);
   querySelector('#inputSize').onInput.listen(fractalSettingChanged);
-  
   setFractal();
 }
 
